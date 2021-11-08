@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
-    <!-- we import arjs version without NFT but with marker + location based support -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,29 +16,186 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
     <title>React App</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <a-scene embedded arjs>
-      <a-marker preset="hiro">
-        <a-box position="0 0.5 0" color="yellow"></a-box>
+    <a-scene
+      vr-mode-ui="enabled: false;"
+      loading-screen="enabled: false;"
+      renderer="logarithmicDepthBuffer: true;"
+      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+      id="scene"
+      embedded
+      gesture-detector
+    >
+      <a-assets>
+        <a-asset-item
+          id="animated-asset"
+          src="%PUBLIC_URL%/assets/asset.glb"
+        ></a-asset-item>
+        <a-asset-item
+          id="animated-asset2"
+          src="%PUBLIC_URL%/assets/asset2.glb"
+        ></a-asset-item>
+        <a-asset-item
+          id="animated-asset3"
+          src="%PUBLIC_URL%/assets/asset3.glb"
+        ></a-asset-item>
+        <a-asset-item
+          id="animated-asset4"
+          src="%PUBLIC_URL%/assets/asset4.glb"
+        ></a-asset-item>
+        <a-asset-item
+          id="animated-asset5"
+          src="%PUBLIC_URL%/assets/asset5.glb"
+        ></a-asset-item>
+        <a-asset-item
+          id="animated-asset6"
+          src="%PUBLIC_URL%/assets/asset6.glb"
+        ></a-asset-item>
+        <a-asset-item
+          id="animated-asset7"
+          src="%PUBLIC_URL%/assets/asset7.glb"
+        ></a-asset-item>
+      </a-assets>
+
+      <a-marker
+        id="animated-marker"
+        type="pattern"
+        preset="custom"
+        url="%PUBLIC_URL%/assets/marker.patt"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+      >
+        <a-entity
+          id="bowser-model"
+          scale="1 1 1"
+          animation-mixer="loop: repeat"
+          gltf-model="#animated-asset"
+          class="clickable"
+          gesture-handler
+        ></a-entity>
       </a-marker>
+      <a-marker
+        id="animated-marker2"
+        type="pattern"
+        preset="custom"
+        url="%PUBLIC_URL%/assets/marker2.patt"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+      >
+        <a-entity
+          id="bowser-model"
+          scale="1 1 1"
+          animation-mixer="loop: repeat"
+          gltf-model="#animated-asset2"
+          class="clickable"
+          gesture-handler
+        ></a-entity>
+      </a-marker>
+      <a-marker
+        id="animated-marker3"
+        type="pattern"
+        preset="custom"
+        url="%PUBLIC_URL%/assets/marker3.patt"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+      >
+        <a-entity
+          id="bowser-model"
+          scale="1 1 1"
+          animation-mixer="loop: repeat"
+          gltf-model="#animated-asset3"
+          class="clickable"
+          gesture-handler
+        ></a-entity>
+      </a-marker>
+      <a-marker
+        id="animated-marker4"
+        type="pattern"
+        preset="custom"
+        url="%PUBLIC_URL%/assets/marker4.patt"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+      >
+        <a-entity
+          id="bowser-model"
+          scale="1 1 1"
+          animation-mixer="loop: repeat"
+          gltf-model="#animated-asset4"
+          class="clickable"
+          gesture-handler
+        ></a-entity>
+      </a-marker>
+      <a-marker
+        id="animated-marker5"
+        type="pattern"
+        preset="custom"
+        url="%PUBLIC_URL%/assets/marker5.patt"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+      >
+        <a-entity
+          id="bowser-model"
+          scale="1 1 1"
+          animation-mixer="loop: repeat"
+          gltf-model="#animated-asset5"
+          class="clickable"
+          gesture-handler
+        ></a-entity>
+      </a-marker>
+      <a-marker
+        id="animated-marker6"
+        type="pattern"
+        preset="custom"
+        url="%PUBLIC_URL%/assets/marker6.patt"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+      >
+        <a-entity
+          id="bowser-model"
+          scale="1 1 1"
+          animation-mixer="loop: repeat"
+          gltf-model="#animated-asset6"
+          class="clickable"
+          gesture-handler
+        ></a-entity>
+      </a-marker>
+      <a-marker
+        id="animated-marker7"
+        type="pattern"
+        preset="custom"
+        url="%PUBLIC_URL%/assets/marker7.patt"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+      >
+        <a-entity
+          id="bowser-model"
+          scale="1 1 1"
+          animation-mixer="loop: repeat"
+          gltf-model="#animated-asset7"
+          class="clickable"
+          gesture-handler
+        ></a-entity>
+      </a-marker>
+
       <a-entity camera></a-entity>
     </a-scene>
   </body>

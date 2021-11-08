@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import socketIOClient from 'socket.io-client';
 
 require('dotenv').config();
@@ -24,12 +24,12 @@ const Marker = () => {
       () => {
         let cameraPosition = camera.object3D.position;
         let newMarkerPosition = marker.object3D.position;
-        let distance = cameraPosition.distanceTo(newMarkerPosition);
+        // let distance = cameraPosition.distanceTo(newMarkerPosition);
 
         check = setInterval(() => {
           cameraPosition = camera.object3D.position;
           newMarkerPosition = marker.object3D.position;
-          distance = cameraPosition.distanceTo(newMarkerPosition);
+          // distance = camweraPosition.distanceTo(newMarkerPosition);
 
           // do what you want with the distance:
           console.log('Marker found', markerPosition);
