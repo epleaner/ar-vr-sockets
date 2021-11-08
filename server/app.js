@@ -3,7 +3,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 
 require('dotenv').config();
-const port = process.env['PORT'];
+const port = process.env['SERVER_PORT'];
 const local = process.env['CORSLOCAL'];
 
 const index = require('./routes/index');

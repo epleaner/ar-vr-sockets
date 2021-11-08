@@ -7,6 +7,7 @@ export default function ClientComponent() {
   const [fsr, setFsr] = useState('');
 
   const ENDPOINT = process.env.REACT_APP_ENDPOINT;
+  console.log(ENDPOINT);
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
