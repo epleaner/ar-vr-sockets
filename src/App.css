@@ -1,0 +1,136 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 200px 200px;
+  grid-gap: 20px;
+  align-items: center;
+  justify-items: center;
+  margin: auto;
+  width: 80%;
+  justify-content: center;
+  align-content: center;
+}
+
+.item {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+}
+
+.light {
+  background-color: aliceblue;
+  border-radius: 50% 50% 30px 30px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.light span {
+  z-index: 5;
+  position: relative;
+}
+
+.light-bottom {
+  position: absolute;
+  bottom: -15px;
+  border: 1px solid silver;
+  width: 100%;
+  background-color: silver;
+  margin: auto;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 3;
+}
+
+.light-fill {
+  display: block;
+  position: absolute;
+  width: 100%;
+  background: #fff286;
+  bottom: 0;
+  z-index: 2;
+  transition: height 0.3 ease-in-out;
+}
+
+.led-red,
+.led-blue,
+.led-green {
+  background-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 10px auto 0;
+}
+
+.toggle-led {
+  margin-top: 10px;
+}
+
+.led-red {
+  border: 3px solid red;
+}
+
+.led-red.is-on {
+  background-color: red;
+}
+
+.led-blue {
+  border: 2px solid rgb(27, 135, 185);
+}
+
+.led-blue.is-on {
+  background-color: rgb(27, 135, 185);
+}
+
+.led-green {
+  border: 2px solid green;
+}
+
+.led-green.is-on {
+  background-color: green;
+}
