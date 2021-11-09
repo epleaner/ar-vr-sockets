@@ -22,6 +22,7 @@ const io = socketIo(server, {
 });
 
 let clients = [];
+let markers = {};
 
 // Init Socket.io.
 io.on('connection', (socket) => {
@@ -36,22 +37,18 @@ io.on('connection', (socket) => {
 
   socket.on('markerPosition', (arg) => {
     console.log('New marker position', arg);
-    socket.emit('newMarkerPosition', 'Marker Found: ' + arg.name);
-    // socket.emit('markerPosition', arg.name);
+    markers[arg.name] = arg.position;
   });
 
   socket.on('markerLost', (arg) => {
     console.log('Marker lost', arg);
-    socket.emit('testEvent', 'Marker Lost');
-    // socket.emit('markerLost', arg.name);
+    markers[arg.name] = null;
   });
 
-  socket.on('testEvent', (data) => {
-    console.log('Received test Event ' + data);
+  socket.on('getMarkers', (data) => {
+    console.log(data, markers);
+    socket.emit('Markers', JSON.stringify(markers));
   });
-
-  socket.emit('testEvent', 'Sending');
-  socket.emit('newMarkerPosition', 'Marker Found: TEST');
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
