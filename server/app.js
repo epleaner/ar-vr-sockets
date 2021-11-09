@@ -33,6 +33,10 @@ io.on('connection', (socket) => {
   socket.on('markerPosition', (arg) => {
     console.log('New marker position', arg);
   });
+
+  socket.on('markerLost', (arg) => {
+    console.log('Marker lost', arg);
+  });
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

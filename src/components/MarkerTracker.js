@@ -4,54 +4,39 @@ import socketIOClient from 'socket.io-client';
 require('dotenv').config();
 
 const Marker = () => {
-  const [markerPosition, setMarkerPosition] = useState({
-    x: null,
-    y: null,
-    z: null,
-  });
-
   const ENDPOINT = process.env.REACT_APP_ENDPOINT;
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
-    const camera = document.querySelector('[camera]');
-    const marker = document.querySelector('a-marker');
-    let check;
+    const marker1 = document.querySelector('a-marker#animated-marker');
+    const marker2 = document.querySelector('a-marker#animated-marker2');
 
-    marker.addEventListener(
-      'markerFound',
-      () => {
-        let cameraPosition = camera.object3D.position;
-        let newMarkerPosition = marker.object3D.position;
-        let distance = cameraPosition.distanceTo(newMarkerPosition);
+    const markers = [
+      { marker: marker1, name: 'marker1' },
+      { marker: marker2, name: 'marker2' },
+    ];
 
-        check = setInterval(() => {
-          cameraPosition = camera.object3D.position;
-          newMarkerPosition = marker.object3D.position;
-          distance = cameraPosition.distanceTo(newMarkerPosition);
+    markers.forEach(({ marker, name }) => {
+      let getAndEmit;
 
-          // do what you want with the distance:
-          console.log('Marker found', markerPosition);
-          // console.log(
-          //   'Camera:',
-          //   cameraPosition,
-          //   'Marker:',
-          //   newMarkerPosition,
-          //   'Distance:',
-          //   distance
-          // );
+      marker.addEventListener(
+        'markerFound',
+        () => {
+          getAndEmit = setInterval(() => {
+            let position = marker.object3D.position;
+            console.log('Marker found', name, position);
+            socket.emit('markerPosition', { name, position });
+          }, 100);
+        },
+        []
+      );
 
-          setMarkerPosition(newMarkerPosition);
-          socket.emit('markerPosition', newMarkerPosition);
-        }, 100);
-      },
-      []
-    );
-
-    marker.addEventListener('markerLost', () => {
-      console.log('Marker lost');
-      clearInterval(check);
+      marker.addEventListener('markerLost', () => {
+        console.log('Marker lost', name);
+        socket.emit('markerLost', { name });
+        clearInterval(getAndEmit);
+      });
     });
   });
 
