@@ -21,22 +21,37 @@ const io = socketIo(server, {
   maxHttpBufferSize: 1e8,
 });
 
+let clients = [];
+
 // Init Socket.io.
 io.on('connection', (socket) => {
-  console.log('New client connected');
+  clients.push(socket);
+  console.log('New client connected', socket.id);
 
   socket.on('disconnect', () => {
     console.log('Client disconnected');
-    socket.off();
+    const ndx = clients.indexOf(socket);
+    if (ndx !== -1) clients.splice(ndx, 1);
   });
 
   socket.on('markerPosition', (arg) => {
     console.log('New marker position', arg);
+    socket.emit('newMarkerPosition', 'Marker Found: ' + arg.name);
+    // socket.emit('markerPosition', arg.name);
   });
 
   socket.on('markerLost', (arg) => {
     console.log('Marker lost', arg);
+    socket.emit('testEvent', 'Marker Lost');
+    // socket.emit('markerLost', arg.name);
   });
+
+  socket.on('testEvent', (data) => {
+    console.log('Received test Event ' + data);
+  });
+
+  socket.emit('testEvent', 'Sending');
+  socket.emit('newMarkerPosition', 'Marker Found: TEST');
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

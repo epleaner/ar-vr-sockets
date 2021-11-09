@@ -1,13 +1,18 @@
-import { useEffect, useState } from 'react';
-import socketIOClient from 'socket.io-client';
+import { useEffect, useContext } from 'react';
+import SocketContext from '../contexts/SocketContext';
 
 require('dotenv').config();
 
 const Marker = () => {
-  const ENDPOINT = process.env.REACT_APP_ENDPOINT;
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
-    const socket = socketIOClient(ENDPOINT);
+    if (!socket) return;
+
+    console.log('ok we got a socket', socket);
+    socket.on('newMarkerPosition', () =>
+      console.log('we got a new marker position')
+    );
 
     const marker1 = document.querySelector('a-marker#animated-marker');
     const marker2 = document.querySelector('a-marker#animated-marker2');
@@ -18,6 +23,7 @@ const Marker = () => {
     ];
 
     markers.forEach(({ marker, name }) => {
+      console.log('Setting up listeners for', name);
       let getAndEmit;
 
       marker.addEventListener(
@@ -38,7 +44,11 @@ const Marker = () => {
         clearInterval(getAndEmit);
       });
     });
-  });
+
+    return () => socket.emit('disconnect');
+  }, [socket]);
+
+  useEffect(() => () => console.log('bye'), []);
 
   return null;
 };

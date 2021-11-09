@@ -1,21 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import ClientComponent from './components/ClientComponent';
+
+import SocketContext from './contexts/SocketContext';
 import MarkerTracker from './components/MarkerTracker';
 
+import socketIOClient from 'socket.io-client';
+
 function App() {
-  const [loadClient, setLoadClient] = useState(true);
+  const ENDPOINT = process.env.REACT_APP_ENDPOINT;
+
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const newSocket = socketIOClient(ENDPOINT);
+    setSocket(newSocket);
+
+    console.log(newSocket);
+
+    return () => {
+      newSocket.close();
+    };
+  }, [ENDPOINT]);
 
   return (
-    <>
-      {/* LOAD OR UNLOAD THE CLIENT */}
-      <button onClick={() => setLoadClient((prevState) => !prevState)}>
-        {loadClient ? 'STOP CLIENT' : 'Start Client'}
-      </button>
-      {/* SOCKET IO CLIENT*/}
-      {loadClient ? <ClientComponent loadClient={loadClient} /> : null}
+    <SocketContext.Provider value={socket}>
       <MarkerTracker />
-    </>
+    </SocketContext.Provider>
   );
 }
 
